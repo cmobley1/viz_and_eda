@@ -50,4 +50,21 @@ weather_df %>%
     )
 ```
 
+## Scales
 
+start with the same plot 
+
+```{r}
+weather_df %>%
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperatue plot",
+    x = "Minimum daily temperatue (C)",
+    y = "Maximum daily temperature (C)", 
+    caption = "Data from rnoa package; temperature in 2017."
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location", 
+    discrete = TRUE)
+```
