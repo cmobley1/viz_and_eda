@@ -16,6 +16,10 @@ library(tidyverse)
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
+``` r
+library(ggridges)
+```
+
 Load in a dataset that we we’ll use often.
 
 ``` r
@@ -165,3 +169,89 @@ weather_df %>%
     ## Warning: Removed 15 rows containing non-finite values (stat_bin2d).
 
 ![](viz_part1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+## Univariate plots
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmax, fill = name)) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_bin).
+
+![](viz_part1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+  facet_grid(. ~ name) 
+```
+
+    ## <ggproto object: Class FacetGrid, Facet, gg>
+    ##     compute_layout: function
+    ##     draw_back: function
+    ##     draw_front: function
+    ##     draw_labels: function
+    ##     draw_panels: function
+    ##     finish_data: function
+    ##     init_scales: function
+    ##     map_data: function
+    ##     params: list
+    ##     setup_data: function
+    ##     setup_params: function
+    ##     shrink: TRUE
+    ##     train_scales: function
+    ##     vars: function
+    ##     super:  <ggproto object: Class FacetGrid, Facet, gg>
+
+Let’s try some other plots…
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmax, fill = name)) +
+  geom_density(alpha = .3)
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density).
+
+![](viz_part1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+Still with `t max` and `name`
+
+``` r
+weather_df %>%
+  ggplot(aes(x = name, y = tmax)) +
+  geom_boxplot()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+![](viz_part1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+Some people like violin plots??
+
+``` r
+weather_df %>%
+  ggplot(aes(x = name, y = tmax)) +
+  geom_violin()
+```
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_ydensity).
+
+![](viz_part1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+\#\#violin shows you full distribution
+
+What about ridges …
+
+``` r
+weather_df %>%
+  ggplot(aes(x = tmax, y = name)) +
+  geom_density_ridges(alpha = .8, scale = .8)
+```
+
+    ## Picking joint bandwidth of 1.84
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_density_ridges).
+
+![](viz_part1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
